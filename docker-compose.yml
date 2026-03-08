@@ -1,0 +1,32 @@
+version: "3.9"
+
+services:
+
+  mongodb:
+    image: mongo:7
+    container_name: mongo-db
+    restart: always
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: admin
+    volumes:
+      - mongo-data:/data/db
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: finedge-app
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env
+    environment:
+      MONGODB_URI: mongodb://admin:admin@mongodb:27017/finedge?authSource=admin
+    depends_on:
+      - mongodb
+
+volumes:
+  mongo-data:
