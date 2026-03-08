@@ -2,29 +2,29 @@ import transactionService from "./transactions.services.js";
 import { successResponse } from "../../shared/utils/response.js";
 
 const createTransaction = async (req, res) => {
-  const { type, category, amount, date, notes } = req.body;
+  const { type, amount, date, notes, title } = req.body;
   const transaction = await transactionService.createTransaction({
     userId: req.user.id,
     type,
-    category,
     amount,
     date,
     notes,
+    title,
   });
   successResponse(res, transaction, "Transaction created successfully", 201);
 };
 
 const updateTransaction = async (req, res) => {
   const { id } = req.params;
-  const { type, category, amount, date, notes } = req.body;
+  const { type, amount, date, notes, title } = req.body;
   const transaction = await transactionService.updateTransaction({
     id,
     userId: req.user.id,
     type,
-    category,
     amount,
     date,
-    notes,
+    notes,  
+    title,
   });
   successResponse(res, transaction, "Transaction updated successfully", 200);
 };

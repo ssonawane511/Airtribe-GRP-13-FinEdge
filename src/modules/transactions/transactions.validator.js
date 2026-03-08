@@ -3,20 +3,20 @@ import { z } from 'zod';
 export const createTransactionSchema = z.object({
     body: z.object({
         type: z.enum(['income', 'expense']),
-        category: z.string(),
         amount: z.number(),
         date: z.iso.datetime().transform(str => new Date(str)),
-        notes: z.string().optional()
+        notes: z.string().optional(),
+        title: z.string(),
     })
 })
 
 const updateTransactionSchema = z.object({
     body: z.object({
         type: z.enum(['income', 'expense']),
-        category: z.string(),
         amount: z.number(),
         date: z.iso.datetime().transform(str => new Date(str)),
-        notes: z.string().optional()
+        notes: z.string().optional(),
+        title: z.string().optional(),
     })
 })
 

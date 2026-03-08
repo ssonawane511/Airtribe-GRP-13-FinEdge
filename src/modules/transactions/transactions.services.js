@@ -2,26 +2,30 @@ import mongoose from 'mongoose';
 import Transaction from './transactions.model.js';
 import { NotFoundError } from '../../shared/errors/errors.js';
 import Cache from '../../shared/utils/cache.js';
+import { analyzeExpense } from '../../shared/services/ai.service.js';
 
-const createTransaction = async ({ userId, type, category, amount, date, notes }) => {
+const createTransaction = async ({ userId, type, amount, date, notes, title }) => {
     const cacheKey = `transaction_summary_${userId}`;
     Cache.invalidate(cacheKey);
-    const transaction = await Transaction.create({ user: userId, type, category, amount, date: new Date(date), notes });
+    const category = await analyzeExpense(title);
+    const transaction = await Transaction.create({ user: userId, type, category: category.category, amount, date: new Date(date), notes, title });
     return transaction;
 }
 
-const updateTransaction = async ({ id, userId, type, category, amount, date, notes }) => {
+const updateTransaction = async ({ id, userId, type, amount, date, notes, title }) => {
     const cacheKey = `transaction_summary_${userId}`;
     Cache.invalidate(cacheKey);
+    const category = await analyzeExpense(title);
     const transaction = await Transaction.findById(id);
     if (!transaction || transaction.user.toString() !== userId.toString()) {
         throw new NotFoundError('Transaction not found');
     }
+    transaction.title = title;
     transaction.type = type;
-    transaction.category = category;
     transaction.amount = amount;
     transaction.date = new Date(date);
     transaction.notes = notes;
+    transaction.category = category.category;
     await transaction.save();
     return transaction;
 }
