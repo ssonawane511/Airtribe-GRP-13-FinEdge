@@ -7,19 +7,20 @@ const server = supertest(app);
 let authToken = null;
 
 const createTransaction = {
+  title: "Salary",
   type: "income",
-  category: "Salary",
   amount: 1000,
   date: new Date().toISOString(),
-  notes: "Salary for the month",
+  notes: "Salary for the month",  
+  title: "Salary",
 };
 
 const updateTransaction = {
   type: "expense",
-  category: "Food",
   amount: 500,
   date: new Date().toISOString(),
   notes: "Food for the month",
+  title: "Food for the month",
 };
 
 

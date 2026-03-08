@@ -9,7 +9,7 @@ import { httpLogger } from "./shared/logger/index.js";
 // routes 
 import usersRoutes from "./modules/users/users.routes.js";
 import transactionsRoutes from "./modules/transactions/transactions.routes.js";
-
+import suggestRoutes from "./modules/suggest/suggest.routes.js";
 // middleware
 import { errorHandler } from "./shared/middleware/error.middleware.js";
 import rateLimiter from "./shared/middleware/ratelimitter.middleware.js";
@@ -34,7 +34,7 @@ app.get("/health", (_, res) => {
   res.json({ status: "ok" });
 });
 
-app.use("/api", httpLogger, usersRoutes, transactionsRoutes);
+app.use("/api", httpLogger, usersRoutes, transactionsRoutes, suggestRoutes);
 
 // Error handler must be registered AFTER all routes
 app.use(errorHandler);
