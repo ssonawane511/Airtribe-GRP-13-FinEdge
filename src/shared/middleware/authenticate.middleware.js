@@ -12,7 +12,7 @@ const authenticate = async (req, _, next) => {
     if (!user) {
         throw new UnauthorizedError('Unauthorized');
     }
-    req.user = user;
+    req.user = user.toJSON();
     next();
 }
 

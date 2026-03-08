@@ -58,5 +58,4 @@ tap.test("GET /api/v1/users", async (t) => {
 });
 
 tap.teardown(async () => {
-  server.close();
 });

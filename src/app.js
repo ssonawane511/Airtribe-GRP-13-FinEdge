@@ -12,7 +12,7 @@ import transactionsRoutes from "./modules/transactions/transactions.routes.js";
 import suggestRoutes from "./modules/suggest/suggest.routes.js";
 // middleware
 import { errorHandler } from "./shared/middleware/error.middleware.js";
-import rateLimiter from "./shared/middleware/ratelimitter.middleware.js";
+import rateLimiter from "./shared/middleware/ratelimit.middleware.js";
 
 const app = express();
 const CORS_ORIGIN = process.env.CORS_ORIGIN || "*";
@@ -34,7 +34,9 @@ app.get("/health", (_, res) => {
   res.json({ status: "ok" });
 });
 
-app.use("/api", httpLogger, usersRoutes, transactionsRoutes, suggestRoutes);
+app.use("/api/v1/users", httpLogger, usersRoutes);
+app.use("/api/v1/transactions", httpLogger, transactionsRoutes);
+app.use("/api/v1/suggest", httpLogger, suggestRoutes);
 
 // Error handler must be registered AFTER all routes
 app.use(errorHandler);

@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 export const getSuggestSchema = z.object({
-    body: z.object({
+    query: z.object({
         ask: z.string()
     })
 })

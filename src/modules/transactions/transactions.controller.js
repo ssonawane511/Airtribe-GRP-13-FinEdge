@@ -45,13 +45,15 @@ const getAllTransactions = async (req, res) => {
 
 const getTransactionById = async (req, res) => {
   const { id } = req.params;
-  const transaction = await transactionService.getTransactionById(id);
+  const userId = req.user.id;
+  const transaction = await transactionService.getTransactionById({id, userId});
   successResponse(res, transaction, "Transaction fetched successfully", 200);
 };
 
 const deleteTransaction = async (req, res) => {
   const { id } = req.params;
-  await transactionService.deleteTransaction(id);
+  const userId = req.user.id;
+  await transactionService.deleteTransaction({id, userId});
   successResponse(res, null, "Transaction deleted successfully", 200);
 };
 

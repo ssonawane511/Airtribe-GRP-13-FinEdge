@@ -12,7 +12,6 @@ const createTransaction = {
   amount: 1000,
   date: new Date().toISOString(),
   notes: "Salary for the month",  
-  title: "Salary",
 };
 
 const updateTransaction = {
@@ -108,5 +107,4 @@ tap.test("DELETE /api/v1/transactions/:id", async (t) => {
 });
 
 tap.teardown(async () => {
-  server.close();
 });

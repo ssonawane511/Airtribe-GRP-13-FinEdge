@@ -1,43 +1,41 @@
 TAP version 14
-{"level":30,"time":1772982083176,"pid":66758,"hostname":"sagars-mac.local","msg":"MongoDB Connected: localhost"}
-MongoDB Connected: localhost
-{"level":30,"time":1772982083287,"pid":66758,"hostname":"sagars-mac.local","req":{"method":"POST","path":"/api/v1/users/signup","remoteAddress":"::ffff:127.0.0.1"},"res":{"statusCode":201},"responseTime":94,"msg":"request completed"}
+{"level":30,"time":1772991326731,"pid":96422,"hostname":"sagars-mac.local","msg":"MongoDB Connected: localhost"}
+{"level":30,"time":1772991326846,"pid":96422,"hostname":"sagars-mac.local","req":{"method":"POST","path":"/api/v1/users/signup","remoteAddress":"::ffff:127.0.0.1"},"res":{"statusCode":201},"responseTime":97,"msg":"request completed"}
 # Subtest: POST /api/v1/users/signup
     ok 1 - should be equal
     1..1
-ok 1 - POST /api/v1/users/signup # time=112.961ms
+ok 1 - POST /api/v1/users/signup # time=117.454ms
 
-{"level":30,"time":1772982083367,"pid":66758,"hostname":"sagars-mac.local","req":{"method":"POST","path":"/api/v1/users/login","remoteAddress":"::ffff:127.0.0.1"},"res":{"statusCode":200},"responseTime":74,"msg":"request completed"}
+{"level":30,"time":1772991326942,"pid":96422,"hostname":"sagars-mac.local","req":{"method":"POST","path":"/api/v1/users/login","remoteAddress":"::ffff:127.0.0.1"},"res":{"statusCode":200},"responseTime":90,"msg":"request completed"}
 {
   success: [33mtrue[39m,
   message: [32m'User logged in successfully'[39m,
   data: {
     user: {
-      id: [32m'69ad8f4372b86a78b2c70a03'[39m,
+      id: [32m'69adb35eb9a4fb286a59b1c2'[39m,
       name: [32m'John Doe'[39m,
-      email: [32m'john.doe0.49342339654574685@example.com'[39m,
+      email: [32m'john.doe0.21813460714904886@example.com'[39m,
       preferences: []
     },
-    accessToken: [32m'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OWFkOGY0MzcyYjg2YTc4YjJjNzBhMDMiLCJpYXQiOjE3NzI5ODIwODMsImV4cCI6MTc3Mjk4NTY4M30.psUrBSLwSZCfiEocbOP2ZcC83CRfJUuwqOFDIWyinbQ'[39m,
-    refreshToken: [32m'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OWFkOGY0MzcyYjg2YTc4YjJjNzBhMDMiLCJpYXQiOjE3NzI5ODIwODMsImV4cCI6MTc3MzU4Njg4M30.eP7y2zAERCM38ldb128gkxwKSCldzSW28U7BwzcxZ00'[39m
+    accessToken: [32m'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OWFkYjM1ZWI5YTRmYjI4NmE1OWIxYzIiLCJpYXQiOjE3NzI5OTEzMjYsImV4cCI6MTc3Mjk5NDkyNn0.liw4fvwxYc2_99HhPkneG2Jpw3O6x-LGUUEanZi2GVM'[39m,
+    refreshToken: [32m'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OWFkYjM1ZWI5YTRmYjI4NmE1OWIxYzIiLCJpYXQiOjE3NzI5OTEzMjYsImV4cCI6MTc3MzU5NjEyNn0.DZaMoVTlvRqHAYGFhGz3xCPESbm6NCpeD9-lPt-IfFM'[39m
   }
 }
 # Subtest: POST /api/v1/users/login
     ok 1 - should be equal
     1..1
-ok 2 - POST /api/v1/users/login # time=80.74ms
+ok 2 - POST /api/v1/users/login # time=94.011ms
 
-{"level":30,"time":1772982083386,"pid":66758,"hostname":"sagars-mac.local","req":{"method":"PUT","path":"/api/v1/users/preferences","remoteAddress":"::ffff:127.0.0.1"},"res":{"statusCode":200},"responseTime":11,"msg":"request completed"}
+{"level":30,"time":1772991326959,"pid":96422,"hostname":"sagars-mac.local","req":{"method":"PUT","path":"/api/v1/users/preferences","remoteAddress":"::ffff:127.0.0.1"},"res":{"statusCode":200},"responseTime":13,"msg":"request completed"}
 # Subtest: PUT /api/v1/users/preferences
     ok 1 - should be equal
     1..1
-ok 3 - PUT /api/v1/users/preferences # time=15.477ms
+ok 3 - PUT /api/v1/users/preferences # time=17.622ms
 
-{"level":30,"time":1772982083397,"pid":66758,"hostname":"sagars-mac.local","req":{"method":"GET","path":"/api/v1/users/","remoteAddress":"::ffff:127.0.0.1"},"res":{"statusCode":200},"responseTime":8,"msg":"request completed"}
+{"level":30,"time":1772991326972,"pid":96422,"hostname":"sagars-mac.local","req":{"method":"GET","path":"/api/v1/users/","remoteAddress":"::ffff:127.0.0.1"},"res":{"statusCode":200},"responseTime":6,"msg":"request completed"}
 # Subtest: GET /api/v1/users
     ok 1 - should be equal
     1..1
-ok 4 - GET /api/v1/users # time=10.517ms
+ok 4 - GET /api/v1/users # time=9.133ms
 
 1..4
-# error thrown in teardown

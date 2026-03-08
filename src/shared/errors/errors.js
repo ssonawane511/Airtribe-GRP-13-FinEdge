@@ -1,8 +1,8 @@
 import { AppError } from "./AppError.js"
 
 export class BadRequestError extends AppError {
-  constructor(message = "Bad Request") {
-    super(message, 400, "BAD_REQUEST")
+  constructor(message = "Bad Request", data = null) {
+    super(message, 400, "BAD_REQUEST", data)
   }
 }
 
@@ -24,9 +24,16 @@ export class ConflictError extends AppError {
   }
 }
 
+export class InternalServerError extends AppError {
+  constructor(message = "Internal Server Error") {
+    super(message, 500, "INTERNAL_SERVER_ERROR")
+  }
+}
+
 export default {
   BadRequestError,
   UnauthorizedError,
   NotFoundError,
-  ConflictError
+  ConflictError,
+  InternalServerError
 }

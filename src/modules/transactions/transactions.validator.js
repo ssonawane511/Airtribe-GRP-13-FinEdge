@@ -16,7 +16,7 @@ const updateTransactionSchema = z.object({
         amount: z.number(),
         date: z.iso.datetime().transform(str => new Date(str)),
         notes: z.string().optional(),
-        title: z.string().optional(),
+        title: z.string(),
     })
 })
 
@@ -28,13 +28,12 @@ const getTransactionByIdSchema = z.object({
 
 const getAllTransactionsSchema = z.object({
     query: z.object({
-        page: z.number().optional(),
-        limit: z.number().optional(),
+        page: z.string().optional(),
+        limit: z.string().optional(),
         type: z.string().optional(),
         category: z.string().optional(),
-        date: z.iso.datetime().transform(str => new Date(str)),
-        startDate: z.iso.datetime().transform(str => new Date(str)),
-        endDate: z.iso.datetime().transform(str => new Date(str)),
+        startDate: z.iso.datetime().transform(str => new Date(str)).optional(),
+        endDate: z.iso.datetime().transform(str => new Date(str)).optional(),
     })
 })
 
