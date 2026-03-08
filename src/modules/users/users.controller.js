@@ -20,8 +20,15 @@ const updateUserPreferences = async (req, res) => {
     successResponse(res, user, "User preferences updated successfully", 200);
 }
 
+const getUser = async (req, res) => {
+    const userId = req.user.id;
+    const user = await userService.getUser(userId);
+    successResponse(res, user, "User fetched successfully", 200);
+}
+
 export default {
     signup,
     login,
-    updateUserPreferences
+    updateUserPreferences,
+    getUser
 }

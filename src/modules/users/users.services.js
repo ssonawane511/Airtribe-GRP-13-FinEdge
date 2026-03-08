@@ -41,8 +41,17 @@ const updateUserPreferences = async (userId, preferences) => {
     return { preferences: user.preferences };
 }
 
+const getUser = async (userId) => {
+    const user = await User.findById(userId);
+    if (!user) {
+        throw new NotFoundError('User not found');
+    }
+    return user;
+}
+
 export default {
     signup,
     login,
-    updateUserPreferences
+    updateUserPreferences,
+    getUser
 }

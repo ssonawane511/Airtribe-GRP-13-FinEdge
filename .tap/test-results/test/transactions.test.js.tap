@@ -1,0 +1,62 @@
+TAP version 14
+{"level":30,"time":1772982083177,"pid":66757,"hostname":"sagars-mac.local","msg":"MongoDB Connected: localhost"}
+MongoDB Connected: localhost
+{"level":30,"time":1772982083287,"pid":66757,"hostname":"sagars-mac.local","req":{"method":"POST","path":"/api/v1/users/signup","remoteAddress":"::ffff:127.0.0.1"},"res":{"statusCode":201},"responseTime":93,"msg":"request completed"}
+# Subtest: POST /api/v1/users/signup
+    ok 1 - should be equal
+    1..1
+ok 1 - POST /api/v1/users/signup # time=113.019ms
+
+{"level":30,"time":1772982083366,"pid":66757,"hostname":"sagars-mac.local","req":{"method":"POST","path":"/api/v1/users/login","remoteAddress":"::ffff:127.0.0.1"},"res":{"statusCode":200},"responseTime":73,"msg":"request completed"}
+# Subtest: POST /api/v1/users/login
+    ok 1 - should be equal
+    1..1
+ok 2 - POST /api/v1/users/login # time=77.064ms
+
+{"level":30,"time":1772982083383,"pid":66757,"hostname":"sagars-mac.local","req":{"method":"POST","path":"/api/v1/transactions","remoteAddress":"::ffff:127.0.0.1"},"res":{"statusCode":201},"responseTime":13,"msg":"request completed"}
+{
+  id: [32m'69ad8f43ded8859414b8c6f2'[39m,
+  user: [32m'69ad8f43ded8859414b8c6ee'[39m,
+  type: [32m'income'[39m,
+  category: [32m'Salary'[39m,
+  amount: [33m1000[39m,
+  date: [32m'2026-03-08T15:01:23.137Z'[39m,
+  notes: [32m'Salary for the month'[39m
+}
+# Subtest: POST /api/v1/transactions
+    ok 1 - should be equal
+    1..1
+ok 3 - POST /api/v1/transactions # time=16.281ms
+
+{"level":30,"time":1772982083396,"pid":66757,"hostname":"sagars-mac.local","req":{"method":"GET","path":"/api/v1/transactions/summary","remoteAddress":"::ffff:127.0.0.1"},"res":{"statusCode":200},"responseTime":9,"msg":"request completed"}
+# Subtest: GET /api/v1/transactions/summary
+    ok 1 - should be equal
+    1..1
+ok 4 - GET /api/v1/transactions/summary # time=12.086ms
+
+{"level":30,"time":1772982083411,"pid":66757,"hostname":"sagars-mac.local","req":{"method":"GET","path":"/api/v1/transactions","remoteAddress":"::ffff:127.0.0.1"},"res":{"statusCode":200},"responseTime":11,"msg":"request completed"}
+# Subtest: GET /api/v1/transactions
+    ok 1 - should be equal
+    1..1
+ok 5 - GET /api/v1/transactions # time=14.956ms
+
+{"level":30,"time":1772982083420,"pid":66757,"hostname":"sagars-mac.local","req":{"method":"GET","path":"/api/v1/transactions/69ad8f43ded8859414b8c6f2","remoteAddress":"::ffff:127.0.0.1"},"res":{"statusCode":200},"responseTime":6,"msg":"request completed"}
+# Subtest: GET /api/v1/transactions/:id
+    ok 1 - should be equal
+    1..1
+ok 6 - GET /api/v1/transactions/:id # time=8.08ms
+
+{"level":30,"time":1772982083432,"pid":66757,"hostname":"sagars-mac.local","req":{"method":"PUT","path":"/api/v1/transactions/69ad8f43ded8859414b8c6f2","remoteAddress":"::ffff:127.0.0.1"},"res":{"statusCode":200},"responseTime":9,"msg":"request completed"}
+# Subtest: PUT /api/v1/transactions/:id
+    ok 1 - should be equal
+    1..1
+ok 7 - PUT /api/v1/transactions/:id # time=10.972ms
+
+{"level":30,"time":1772982083444,"pid":66757,"hostname":"sagars-mac.local","req":{"method":"DELETE","path":"/api/v1/transactions/69ad8f43ded8859414b8c6f2","remoteAddress":"::ffff:127.0.0.1"},"res":{"statusCode":200},"responseTime":11,"msg":"request completed"}
+# Subtest: DELETE /api/v1/transactions/:id
+    ok 1 - should be equal
+    1..1
+ok 8 - DELETE /api/v1/transactions/:id # time=11.684ms
+
+1..8
+# error thrown in teardown

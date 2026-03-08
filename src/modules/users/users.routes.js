@@ -8,6 +8,7 @@ import authenticate from "../../shared/middleware/authenticate.middleware.js";
 const router = express.Router();
 
 router.use("/v1/users", router)
+  .get("/", authenticate, userController.getUser)
   .post("/signup", validate(usersValidator.createUserSchema), userController.signup)
   .post("/login", validate(usersValidator.loginUserSchema), userController.login)
   .put("/preferences", authenticate, validate(usersValidator.updateUserPreferencesSchema), userController.updateUserPreferences)
