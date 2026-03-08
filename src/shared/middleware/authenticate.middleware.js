@@ -2,10 +2,7 @@ import jwt from 'jsonwebtoken';
 import User from '../../modules/users/users.model.js';
 import { UnauthorizedError } from '../errors/errors.js';
 
-const authenticate = async (req, res, next) => {
-
-    console.log("authenticate middleware");
-    console.log(req.headers.authorization);
+const authenticate = async (req, _, next) => {
     const [type, token] = req.headers.authorization?.split(' ') || [];
     if (type !== 'Bearer' || !token) {
         throw new UnauthorizedError('Unauthorized');
