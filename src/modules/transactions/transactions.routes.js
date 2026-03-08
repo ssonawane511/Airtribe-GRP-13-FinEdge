@@ -7,14 +7,15 @@ const router = express.Router();
 
 router
   .use("/v1/transactions", router)
-  .get("/", authenticate, transactionsController.getAllTransactions)
+  .get("/", authenticate, validate(transactionsValidator.getAllTransactionsSchema), transactionsController.getAllTransactions)
   .post(
     "/",
     authenticate,
     validate(transactionsValidator.createTransactionSchema),
     transactionsController.createTransaction,
   )
-  .get("/summary", authenticate, transactionsController.getTransactionSummary)
+  .get("/summary", authenticate, validate(transactionsValidator.summarySchema), transactionsController.getTransactionSummary)
+  .get("/trend", authenticate, validate(transactionsValidator.trendSchema), transactionsController.getTransactionTrend  )
   .put(
     "/:id",
     authenticate,

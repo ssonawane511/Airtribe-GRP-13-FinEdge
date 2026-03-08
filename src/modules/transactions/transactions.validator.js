@@ -26,8 +26,37 @@ const getTransactionByIdSchema = z.object({
     })
 })
 
+const getAllTransactionsSchema = z.object({
+    query: z.object({
+        page: z.number().optional(),
+        limit: z.number().optional(),
+        type: z.string().optional(),
+        category: z.string().optional(),
+        date: z.iso.datetime().transform(str => new Date(str)),
+        startDate: z.iso.datetime().transform(str => new Date(str)),
+        endDate: z.iso.datetime().transform(str => new Date(str)),
+    })
+})
+
+const summarySchema = z.object({
+    query: z.object({
+        startDate: z.iso.datetime().transform(str => new Date(str)).optional(),
+        endDate: z.iso.datetime().transform(str => new Date(str)).optional()    
+    })
+})
+
+const trendSchema = z.object({
+    query: z.object({
+        startDate: z.iso.datetime().transform(str => new Date(str)).optional(),
+        endDate: z.iso.datetime().transform(str => new Date(str)).optional()
+    })
+})
+
 export default {
     createTransactionSchema,
     updateTransactionSchema,
-    getTransactionByIdSchema
+    getTransactionByIdSchema,
+    getAllTransactionsSchema,
+    summarySchema,
+    trendSchema
 }

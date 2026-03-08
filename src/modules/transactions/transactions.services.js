@@ -26,18 +26,31 @@ const updateTransaction = async ({ id, userId, type, category, amount, date, not
     return transaction;
 }
 
-const getAllTransactions = async ({ userId, page, limit }) => {
+const getAllTransactions = async ({ userId, page, limit, category, type, startDate, endDate }) => {
     page = Number(page);
     limit = Math.min(Number(limit), 10);
-
     const skip = (page - 1) * limit;
+    const filter = { user: userId };
+
+    if (category) {
+        filter.category = category;
+    }
+    if (type) {
+        filter.type = type;
+    }
+    if (startDate) {
+        filter.date = { $gte: new Date(startDate) };
+    }
+    if (endDate) {
+        filter.date = { $lte: new Date(endDate) };
+    }
 
     const [transactions, total] = await Promise.all([
-        Transaction.find({ user: userId })
+        Transaction.find(filter)
             .sort({ date: -1 }) // newest first
             .skip(skip)
             .limit(limit),
-        Transaction.countDocuments({ user: userId })
+        Transaction.countDocuments(filter)
     ]);
 
     const totalPages = Math.ceil(total / limit);
@@ -73,18 +86,84 @@ const deleteTransaction = async (id) => {
     await transaction.deleteOne();
 }
 
-const getTransactionSummary = async ({ userId }) => {
+const getTransactionSummary = async ({ userId, startDate, endDate }) => {
     const cacheKey = `transaction_summary_${userId}`;
     const cachedSummary = Cache.get(cacheKey);
     if (cachedSummary) {
         return cachedSummary;
     }
+    let filter = { user: new mongoose.Types.ObjectId(userId) };
+    if (startDate) {
+        filter.date = { $gte: new Date(startDate) };
+    }
+    if (endDate) {
+        filter.date = { $lte: new Date(endDate) };
+    }
     const summary = await Transaction.aggregate([
-        { $match: { user: new mongoose.Types.ObjectId(userId) } },
-        { $group: { _id: '$type', total: { $sum: '$amount' }, count: { $count: {} } } }
+        { $match: filter },
+        {
+            $group: {
+                _id: null,
+                income: { $sum: { $cond: [{ $eq: ['$type', 'income'] }, '$amount', 0] } },
+                expense: { $sum: { $cond: [{ $eq: ['$type', 'expense'] }, '$amount', 0] } },
+                transactions: { $sum: 1 }
+            }
+        },
+        {
+            $addFields: {
+                balance: { $subtract: ['$income', '$expense'] }
+            }
+        },
+        {
+            $project: {
+                _id: 0,
+                income: 1,
+                expense: 1,
+                balance: 1,
+                transactions: 1
+            }
+        }
     ]);
     Cache.set(cacheKey, summary, 60 * 1000);
     return summary;
+}
+
+const getTransactionTrend = async ({ userId, startDate, endDate }) => {
+    let filter = { user: new mongoose.Types.ObjectId(userId) };
+    if (startDate) {
+        filter.date = { $gte: new Date(startDate) };
+    }
+    if (endDate) {
+        filter.date = { $lte: new Date(endDate) };
+    }
+    const trend = await Transaction.aggregate([
+        { $match: filter },
+        {
+            $group: {
+                _id: { $dateToString: { format: '%Y-%m-%d', date: '$date' } },
+                income: { $sum: { $cond: [{ $eq: ['$type', 'income'] }, '$amount', 0] } },
+                expense: { $sum: { $cond: [{ $eq: ['$type', 'expense'] }, '$amount', 0] } },
+                transactions: { $sum: 1 }
+            }
+        },
+        {
+            $addFields: {
+                balance: { $subtract: ['$income', '$expense'] }
+            }
+        },
+        {
+            $project: {
+                _id: 0,
+                date: '$_id',
+                income: 1,
+                expense: 1,
+                balance: 1,
+                transactions: 1
+            }
+        },
+        { $sort: { date: 1 } }
+    ]);
+    return trend;
 }
 
 export default {
@@ -93,5 +172,6 @@ export default {
     getTransactionById,
     deleteTransaction,
     getAllTransactions,
-    getTransactionSummary
+    getTransactionSummary,
+    getTransactionTrend
 }
