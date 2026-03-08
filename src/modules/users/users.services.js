@@ -31,12 +31,18 @@ const login = async (email, password) => {
     if (!isPasswordValid) {
         throw new BadRequestError('Invalid password');
     }
-    const accessToken = jwt.sign({ id: user._id }, JWT_SECRET, { expiresIn: JWT_EXPIRES_IN });
-    const refreshToken = jwt.sign({ id: user._id }, JWT_SECRET, { expiresIn: JWT_REFRESH_EXPIRES_IN });
+    const accessToken = jwt.sign({ userId: user._id }, JWT_SECRET, { expiresIn: JWT_EXPIRES_IN });
+    const refreshToken = jwt.sign({ userId: user._id }, JWT_SECRET, { expiresIn: JWT_REFRESH_EXPIRES_IN });
     return { user, accessToken, refreshToken };
+}
+
+const updateUserPreferences = async (userId, preferences) => {
+    const user = await User.findByIdAndUpdate(userId, { preferences }, { new: true });
+    return { preferences: user.preferences };
 }
 
 export default {
     signup,
-    login
+    login,
+    updateUserPreferences
 }

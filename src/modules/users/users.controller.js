@@ -13,7 +13,15 @@ const login = async (req, res) => {
     successResponse(res, user, "User logged in successfully", 200);
 }
 
+const updateUserPreferences = async (req, res) => {
+    const { preferences } = req.body;
+    const userId = req.user.id;
+    const user = await userService.updateUserPreferences(userId, preferences);
+    successResponse(res, user, "User preferences updated successfully", 200);
+}
+
 export default {
     signup,
-    login
+    login,
+    updateUserPreferences
 }

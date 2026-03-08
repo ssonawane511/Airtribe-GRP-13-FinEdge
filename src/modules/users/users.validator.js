@@ -15,7 +15,14 @@ export const loginUserSchema = z.object({
     })
 })
 
+const updateUserPreferencesSchema = z.object({
+    body: z.object({
+        preferences: z.array(z.string())
+    })
+})
+
 export default {
     createUserSchema,
-    loginUserSchema
+    loginUserSchema,
+    updateUserPreferencesSchema
 }
