@@ -10,6 +10,7 @@ import { httpLogger } from "./shared/logger/index.js";
 import usersRoutes from "./modules/users/users.routes.js";
 import transactionsRoutes from "./modules/transactions/transactions.routes.js";
 import suggestRoutes from "./modules/suggest/suggest.routes.js";
+import budgetRoutes from "./modules/budget/budget.routes.js";
 // middleware
 import { errorHandler } from "./shared/middleware/error.middleware.js";
 import rateLimiter from "./shared/middleware/ratelimit.middleware.js";
@@ -37,6 +38,7 @@ app.get("/health", (_, res) => {
 app.use("/api/v1/users", httpLogger, usersRoutes);
 app.use("/api/v1/transactions", httpLogger, transactionsRoutes);
 app.use("/api/v1/suggest", httpLogger, suggestRoutes);
+app.use("/api/v1/budget", httpLogger, budgetRoutes);
 
 // Error handler must be registered AFTER all routes
 app.use(errorHandler);

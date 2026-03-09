@@ -30,7 +30,7 @@ const updateTransaction = async (req, res) => {
 };
 
 const getAllTransactions = async (req, res) => {
-  const { page, limit, category, type, startDate, endDate } = req.query;
+  const { page, limit, category, type, startDate, endDate } = req.validatedQuery ?? req.query;
   const transactions = await transactionService.getAllTransactions({
     userId: req.user.id,
     page,
@@ -60,7 +60,7 @@ const deleteTransaction = async (req, res) => {
 const getTransactionSummary = async (req, res) => {
   const defaultStartDate = new Date(new Date().setDate(new Date().getDate() - 30));
   const defaultEndDate = new Date();
-  const { startDate = defaultStartDate, endDate = defaultEndDate } = req.query;
+  const { startDate = defaultStartDate, endDate = defaultEndDate } = req.validatedQuery ?? req.query;
   const summary = await transactionService.getTransactionSummary({
     userId: req.user.id,
     startDate,
@@ -77,7 +77,7 @@ const getTransactionSummary = async (req, res) => {
 const getTransactionTrend = async (req, res) => {
   const defaultStartDate = new Date(new Date().setDate(new Date().getDate() - 30));
   const defaultEndDate = new Date();
-  const { startDate = defaultStartDate, endDate = defaultEndDate } = req.query;
+  const { startDate = defaultStartDate, endDate = defaultEndDate } = req.validatedQuery ?? req.query;
   const trend = await transactionService.getTransactionTrend({
     userId: req.user.id,
     startDate: startDate,

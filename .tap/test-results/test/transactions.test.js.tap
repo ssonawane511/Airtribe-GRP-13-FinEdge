@@ -1,137 +1,61 @@
 TAP version 14
-{"level":30,"time":1772991326730,"pid":96421,"hostname":"sagars-mac.local","msg":"MongoDB Connected: localhost"}
-{"level":30,"time":1772991326846,"pid":96421,"hostname":"sagars-mac.local","req":{"method":"POST","path":"/api/v1/users/signup","remoteAddress":"::ffff:127.0.0.1"},"res":{"statusCode":201},"responseTime":99,"msg":"request completed"}
+{"level":30,"time":1773022241143,"pid":77625,"hostname":"sagars-mac.local","msg":"MongoDB Connected: localhost"}
+{"level":30,"time":1773022241275,"pid":77625,"hostname":"sagars-mac.local","req":{"method":"POST","path":"/api/v1/users/signup","remoteAddress":"::ffff:127.0.0.1"},"res":{"statusCode":201},"responseTime":96,"msg":"request completed"}
 # Subtest: POST /api/v1/users/signup
     ok 1 - should be equal
     1..1
-ok 1 - POST /api/v1/users/signup # time=118.465ms
+ok 1 - POST /api/v1/users/signup # time=134.091ms
 
-{"level":30,"time":1772991326942,"pid":96421,"hostname":"sagars-mac.local","req":{"method":"POST","path":"/api/v1/users/login","remoteAddress":"::ffff:127.0.0.1"},"res":{"statusCode":200},"responseTime":89,"msg":"request completed"}
+{"level":30,"time":1773022241359,"pid":77625,"hostname":"sagars-mac.local","req":{"method":"POST","path":"/api/v1/users/login","remoteAddress":"::ffff:127.0.0.1"},"res":{"statusCode":200},"responseTime":77,"msg":"request completed"}
 # Subtest: POST /api/v1/users/login
     ok 1 - should be equal
     1..1
-ok 2 - POST /api/v1/users/login # time=92.989ms
+ok 2 - POST /api/v1/users/login # time=80.822ms
 
-{"level":30,"time":1772991329642,"pid":96421,"hostname":"sagars-mac.local","req":{"method":"POST","path":"/api/v1/transactions","remoteAddress":"::ffff:127.0.0.1"},"res":{"statusCode":201},"responseTime":2697,"msg":"request completed"}
+{"level":30,"time":1773022244258,"pid":77625,"hostname":"sagars-mac.local","req":{"method":"POST","path":"/api/v1/transactions","remoteAddress":"::ffff:127.0.0.1"},"res":{"statusCode":201},"responseTime":2895,"msg":"request completed"}
 {
-  id: [32m'69adb3615e5a0bd61f9f12ee'[39m,
-  user: [32m'69adb35e5e5a0bd61f9f12ea'[39m,
+  id: [32m'69ae2c243681e4310bc832b1'[39m,
+  user: [32m'69ae2c213681e4310bc832ad'[39m,
   title: [32m'Salary'[39m,
   type: [32m'income'[39m,
-  category: [32m'Other'[39m,
+  category: [32m'Income'[39m,
   amount: [33m1000[39m,
-  date: [32m'2026-03-08T17:35:26.644Z'[39m,
+  date: [32m'2026-03-09T02:10:41.065Z'[39m,
   notes: [32m'Salary for the month'[39m
 }
 # Subtest: POST /api/v1/transactions
     ok 1 - should be equal
     1..1
-ok 3 - POST /api/v1/transactions # time=2702.048ms
+ok 3 - POST /api/v1/transactions # time=2901.461ms
 
-{"level":30,"time":1772991329663,"pid":96421,"hostname":"sagars-mac.local","req":{"method":"GET","path":"/api/v1/transactions/summary","remoteAddress":"::ffff:127.0.0.1"},"res":{"statusCode":500},"err":{"type":"Error","message":"failed with status code 500","stack":"Error: failed with status code 500\n    at onResFinished (/Users/sagar/Desktop/AIRTRIBE/NODE/Airtribe-GRP-13-FinEdge/node_modules/pino-http/logger.js:115:39)\n    at ServerResponse.onResponseComplete (/Users/sagar/Desktop/AIRTRIBE/NODE/Airtribe-GRP-13-FinEdge/node_modules/pino-http/logger.js:178:14)\n    at ServerResponse.emit (node:events:536:35)\n    at onFinish (node:_http_outgoing:1031:10)\n    at callback (node:internal/streams/writable:766:21)\n    at afterWrite (node:internal/streams/writable:710:5)\n    at afterWriteTick (node:internal/streams/writable:696:10)\n    at process.processTicksAndRejections (node:internal/process/task_queues:81:21)"},"responseTime":15,"msg":"request errored"}
+{"level":30,"time":1773022244295,"pid":77625,"hostname":"sagars-mac.local","req":{"method":"GET","path":"/api/v1/transactions/summary","remoteAddress":"::ffff:127.0.0.1"},"res":{"statusCode":200},"responseTime":30,"msg":"request completed"}
 # Subtest: GET /api/v1/transactions/summary
-    not ok 1 - should be equal
-      ---
-      compare: ===
-      at:
-        fileName: test/transactions.test.js
-        lineNumber: 72
-        columnNumber: 5
-        typeName: Test
-      stack: |
-        Test.<anonymous> (test/transactions.test.js:72:5)
-      source: |2
-            .get("/api/v1/transactions/summary")
-            .set("Authorization", `Bearer ${authToken}`);
-          t.equal(response.status, 200);
-        ----^
-          t.end();
-        });
-      diff: |
-        --- expected
-        +++ actual
-        @@ -1,1 +1,1 @@
-        -200
-        +500
-      ...
-    
+    ok 1 - should be equal
     1..1
-not ok 4 - GET /api/v1/transactions/summary # time=37.186ms
-  ---
-  at:
-    fileName: test/transactions.test.js
-    lineNumber: 68
-    columnNumber: 5
-    isToplevel: true
-  source: |
-    });
-  
-    tap.test("GET /api/v1/transactions/summary", async (t) => {
-    ----^
-      const response = await server
-        .get("/api/v1/transactions/summary")
-  ...
+ok 4 - GET /api/v1/transactions/summary # time=33.734ms
 
-{"level":30,"time":1772991329696,"pid":96421,"hostname":"sagars-mac.local","req":{"method":"GET","path":"/api/v1/transactions","remoteAddress":"::ffff:127.0.0.1"},"res":{"statusCode":500},"err":{"type":"Error","message":"failed with status code 500","stack":"Error: failed with status code 500\n    at onResFinished (/Users/sagar/Desktop/AIRTRIBE/NODE/Airtribe-GRP-13-FinEdge/node_modules/pino-http/logger.js:115:39)\n    at ServerResponse.onResponseComplete (/Users/sagar/Desktop/AIRTRIBE/NODE/Airtribe-GRP-13-FinEdge/node_modules/pino-http/logger.js:178:14)\n    at ServerResponse.emit (node:events:536:35)\n    at onFinish (node:_http_outgoing:1031:10)\n    at callback (node:internal/streams/writable:766:21)\n    at afterWrite (node:internal/streams/writable:710:5)\n    at afterWriteTick (node:internal/streams/writable:696:10)\n    at process.processTicksAndRejections (node:internal/process/task_queues:81:21)"},"responseTime":9,"msg":"request errored"}
+{"level":30,"time":1773022244313,"pid":77625,"hostname":"sagars-mac.local","req":{"method":"GET","path":"/api/v1/transactions","remoteAddress":"::ffff:127.0.0.1"},"res":{"statusCode":200},"responseTime":13,"msg":"request completed"}
 # Subtest: GET /api/v1/transactions
-    not ok 1 - should be equal
-      ---
-      compare: ===
-      at:
-        fileName: test/transactions.test.js
-        lineNumber: 80
-        columnNumber: 5
-        typeName: Test
-      stack: |
-        Test.<anonymous> (test/transactions.test.js:80:5)
-      source: |2
-            .get("/api/v1/transactions")
-            .set("Authorization", `Bearer ${authToken}`);
-          t.equal(response.status, 200);
-        ----^
-          t.end();
-        });
-      diff: |
-        --- expected
-        +++ actual
-        @@ -1,1 +1,1 @@
-        -200
-        +500
-      ...
-    
+    ok 1 - should be equal
     1..1
-not ok 5 - GET /api/v1/transactions # time=15.239ms
-  ---
-  at:
-    fileName: test/transactions.test.js
-    lineNumber: 76
-    columnNumber: 5
-    isToplevel: true
-  source: |
-    });
-  
-    tap.test("GET /api/v1/transactions", async (t) => {
-    ----^
-      const response = await server
-        .get("/api/v1/transactions")
-  ...
+ok 5 - GET /api/v1/transactions # time=16.156ms
 
-{"level":30,"time":1772991329710,"pid":96421,"hostname":"sagars-mac.local","req":{"method":"GET","path":"/api/v1/transactions/69adb3615e5a0bd61f9f12ee","remoteAddress":"::ffff:127.0.0.1"},"res":{"statusCode":200},"responseTime":7,"msg":"request completed"}
+{"level":30,"time":1773022244325,"pid":77625,"hostname":"sagars-mac.local","req":{"method":"GET","path":"/api/v1/transactions/69ae2c243681e4310bc832b1","remoteAddress":"::ffff:127.0.0.1"},"res":{"statusCode":200},"responseTime":8,"msg":"request completed"}
 # Subtest: GET /api/v1/transactions/:id
     ok 1 - should be equal
     1..1
-ok 6 - GET /api/v1/transactions/:id # time=8.881ms
+ok 6 - GET /api/v1/transactions/:id # time=11.696ms
 
-{"level":30,"time":1772991330817,"pid":96421,"hostname":"sagars-mac.local","req":{"method":"PUT","path":"/api/v1/transactions/69adb3615e5a0bd61f9f12ee","remoteAddress":"::ffff:127.0.0.1"},"res":{"statusCode":200},"responseTime":1104,"msg":"request completed"}
+{"level":30,"time":1773022245674,"pid":77625,"hostname":"sagars-mac.local","req":{"method":"PUT","path":"/api/v1/transactions/69ae2c243681e4310bc832b1","remoteAddress":"::ffff:127.0.0.1"},"res":{"statusCode":200},"responseTime":1347,"msg":"request completed"}
 # Subtest: PUT /api/v1/transactions/:id
     ok 1 - should be equal
     1..1
-ok 7 - PUT /api/v1/transactions/:id # time=1107.878ms
+ok 7 - PUT /api/v1/transactions/:id # time=1349.714ms
 
-{"level":30,"time":1772991330829,"pid":96421,"hostname":"sagars-mac.local","req":{"method":"DELETE","path":"/api/v1/transactions/69adb3615e5a0bd61f9f12ee","remoteAddress":"::ffff:127.0.0.1"},"res":{"statusCode":200},"responseTime":9,"msg":"request completed"}
+{"level":30,"time":1773022245688,"pid":77625,"hostname":"sagars-mac.local","req":{"method":"DELETE","path":"/api/v1/transactions/69ae2c243681e4310bc832b1","remoteAddress":"::ffff:127.0.0.1"},"res":{"statusCode":200},"responseTime":10,"msg":"request completed"}
 # Subtest: DELETE /api/v1/transactions/:id
     ok 1 - should be equal
     1..1
-ok 8 - DELETE /api/v1/transactions/:id # time=11.019ms
+ok 8 - DELETE /api/v1/transactions/:id # time=13.177ms
 
 1..8

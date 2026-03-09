@@ -1,0 +1,55 @@
+TAP version 14
+{"level":30,"time":1773022241141,"pid":77624,"hostname":"sagars-mac.local","msg":"MongoDB Connected: localhost"}
+{"level":30,"time":1773022241275,"pid":77624,"hostname":"sagars-mac.local","req":{"method":"POST","path":"/api/v1/users/signup","remoteAddress":"::ffff:127.0.0.1"},"res":{"statusCode":201},"responseTime":114,"msg":"request completed"}
+# Subtest: POST /api/v1/users/signup
+    ok 1 - should be equal
+    1..1
+ok 1 - POST /api/v1/users/signup # time=136.702ms
+
+{"level":30,"time":1773022241358,"pid":77624,"hostname":"sagars-mac.local","req":{"method":"POST","path":"/api/v1/users/login","remoteAddress":"::ffff:127.0.0.1"},"res":{"statusCode":200},"responseTime":78,"msg":"request completed"}
+# Subtest: POST /api/v1/users/login
+    ok 1 - should be equal
+    1..1
+ok 2 - POST /api/v1/users/login # time=80.796ms
+
+{"level":30,"time":1773022241367,"pid":77624,"hostname":"sagars-mac.local","req":{"method":"GET","path":"/api/v1/budget","remoteAddress":"::ffff:127.0.0.1"},"res":{"statusCode":200},"responseTime":6,"msg":"request completed"}
+# Subtest: GET /api/v1/budget (no budget set)
+    ok 1 - should be equal
+    ok 2 - should be equal
+    1..2
+ok 3 - GET /api/v1/budget (no budget set) # time=8.958ms
+
+{"level":30,"time":1773022241380,"pid":77624,"hostname":"sagars-mac.local","req":{"method":"PUT","path":"/api/v1/budget","remoteAddress":"::ffff:127.0.0.1"},"res":{"statusCode":200},"responseTime":10,"msg":"request completed"}
+# Subtest: PUT /api/v1/budget - set goal and savings
+    ok 1 - should be equal
+    ok 2 - should be equal
+    ok 3 - should be equal
+    1..3
+ok 4 - PUT /api/v1/budget - set goal and savings # time=11.507ms
+
+{"level":30,"time":1773022241399,"pid":77624,"hostname":"sagars-mac.local","req":{"method":"GET","path":"/api/v1/budget","remoteAddress":"::ffff:127.0.0.1"},"res":{"statusCode":200},"responseTime":16,"msg":"request completed"}
+# Subtest: GET /api/v1/budget - fetch budget
+    ok 1 - should be equal
+    ok 2 - should be equal
+    ok 3 - should be equal
+    1..3
+ok 5 - GET /api/v1/budget - fetch budget # time=20.22ms
+
+{"level":30,"time":1773022241412,"pid":77624,"hostname":"sagars-mac.local","req":{"method":"PUT","path":"/api/v1/budget","remoteAddress":"::ffff:127.0.0.1"},"res":{"statusCode":200},"responseTime":6,"msg":"request completed"}
+# Subtest: PUT /api/v1/budget - update for specific month
+    ok 1 - should be equal
+    ok 2 - should be equal
+    ok 3 - should be equal
+    ok 4 - should be equal
+    1..4
+ok 6 - PUT /api/v1/budget - update for specific month # time=11.083ms
+
+{"level":30,"time":1773022241419,"pid":77624,"hostname":"sagars-mac.local","req":{"method":"GET","path":"/api/v1/budget?month=2025-03","remoteAddress":"::ffff:127.0.0.1"},"res":{"statusCode":200},"responseTime":5,"msg":"request completed"}
+# Subtest: GET /api/v1/budget?month=2025-03
+    ok 1 - should be equal
+    ok 2 - should be equal
+    ok 3 - should be equal
+    1..3
+ok 7 - GET /api/v1/budget?month=2025-03 # time=7.728ms
+
+1..7

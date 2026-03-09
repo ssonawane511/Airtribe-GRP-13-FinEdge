@@ -1,41 +1,41 @@
 TAP version 14
-{"level":30,"time":1772991326731,"pid":96422,"hostname":"sagars-mac.local","msg":"MongoDB Connected: localhost"}
-{"level":30,"time":1772991326846,"pid":96422,"hostname":"sagars-mac.local","req":{"method":"POST","path":"/api/v1/users/signup","remoteAddress":"::ffff:127.0.0.1"},"res":{"statusCode":201},"responseTime":97,"msg":"request completed"}
+{"level":30,"time":1773022241141,"pid":77626,"hostname":"sagars-mac.local","msg":"MongoDB Connected: localhost"}
+{"level":30,"time":1773022241275,"pid":77626,"hostname":"sagars-mac.local","req":{"method":"POST","path":"/api/v1/users/signup","remoteAddress":"::ffff:127.0.0.1"},"res":{"statusCode":201},"responseTime":114,"msg":"request completed"}
 # Subtest: POST /api/v1/users/signup
     ok 1 - should be equal
     1..1
-ok 1 - POST /api/v1/users/signup # time=117.454ms
+ok 1 - POST /api/v1/users/signup # time=136.453ms
 
-{"level":30,"time":1772991326942,"pid":96422,"hostname":"sagars-mac.local","req":{"method":"POST","path":"/api/v1/users/login","remoteAddress":"::ffff:127.0.0.1"},"res":{"statusCode":200},"responseTime":90,"msg":"request completed"}
+{"level":30,"time":1773022241359,"pid":77626,"hostname":"sagars-mac.local","req":{"method":"POST","path":"/api/v1/users/login","remoteAddress":"::ffff:127.0.0.1"},"res":{"statusCode":200},"responseTime":78,"msg":"request completed"}
 {
   success: [33mtrue[39m,
   message: [32m'User logged in successfully'[39m,
   data: {
     user: {
-      id: [32m'69adb35eb9a4fb286a59b1c2'[39m,
+      id: [32m'69ae2c21950aca106ff470cc'[39m,
       name: [32m'John Doe'[39m,
-      email: [32m'john.doe0.21813460714904886@example.com'[39m,
+      email: [32m'john.doe0.7775883096629073@example.com'[39m,
       preferences: []
     },
-    accessToken: [32m'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OWFkYjM1ZWI5YTRmYjI4NmE1OWIxYzIiLCJpYXQiOjE3NzI5OTEzMjYsImV4cCI6MTc3Mjk5NDkyNn0.liw4fvwxYc2_99HhPkneG2Jpw3O6x-LGUUEanZi2GVM'[39m,
-    refreshToken: [32m'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OWFkYjM1ZWI5YTRmYjI4NmE1OWIxYzIiLCJpYXQiOjE3NzI5OTEzMjYsImV4cCI6MTc3MzU5NjEyNn0.DZaMoVTlvRqHAYGFhGz3xCPESbm6NCpeD9-lPt-IfFM'[39m
+    accessToken: [32m'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OWFlMmMyMTk1MGFjYTEwNmZmNDcwY2MiLCJpYXQiOjE3NzMwMjIyNDEsImV4cCI6MTc3MzAyNTg0MX0.GUP_gR7oXtPGO6rB_yTdPmJ9InlEUHbF-OZGZq6EPsI'[39m,
+    refreshToken: [32m'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OWFlMmMyMTk1MGFjYTEwNmZmNDcwY2MiLCJpYXQiOjE3NzMwMjIyNDEsImV4cCI6MTc3MzYyNzA0MX0.CxZ5nflFnt8x8EluYMmaXfY1L9I-Sg1My0LjbxQEs6Q'[39m
   }
 }
 # Subtest: POST /api/v1/users/login
     ok 1 - should be equal
     1..1
-ok 2 - POST /api/v1/users/login # time=94.011ms
+ok 2 - POST /api/v1/users/login # time=82.149ms
 
-{"level":30,"time":1772991326959,"pid":96422,"hostname":"sagars-mac.local","req":{"method":"PUT","path":"/api/v1/users/preferences","remoteAddress":"::ffff:127.0.0.1"},"res":{"statusCode":200},"responseTime":13,"msg":"request completed"}
+{"level":30,"time":1773022241372,"pid":77626,"hostname":"sagars-mac.local","req":{"method":"PUT","path":"/api/v1/users/preferences","remoteAddress":"::ffff:127.0.0.1"},"res":{"statusCode":200},"responseTime":10,"msg":"request completed"}
 # Subtest: PUT /api/v1/users/preferences
     ok 1 - should be equal
     1..1
-ok 3 - PUT /api/v1/users/preferences # time=17.622ms
+ok 3 - PUT /api/v1/users/preferences # time=11.811ms
 
-{"level":30,"time":1772991326972,"pid":96422,"hostname":"sagars-mac.local","req":{"method":"GET","path":"/api/v1/users/","remoteAddress":"::ffff:127.0.0.1"},"res":{"statusCode":200},"responseTime":6,"msg":"request completed"}
+{"level":30,"time":1773022241382,"pid":77626,"hostname":"sagars-mac.local","req":{"method":"GET","path":"/api/v1/users/","remoteAddress":"::ffff:127.0.0.1"},"res":{"statusCode":200},"responseTime":7,"msg":"request completed"}
 # Subtest: GET /api/v1/users
     ok 1 - should be equal
     1..1
-ok 4 - GET /api/v1/users # time=9.133ms
+ok 4 - GET /api/v1/users # time=10.729ms
 
 1..4

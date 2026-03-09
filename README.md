@@ -57,6 +57,7 @@ src/
 ├── modules/
 │   ├── users/             # User authentication & profile
 │   ├── transactions/      # Income/expense tracking
+│   ├── budget/            # Monthly goal & savings target
 │   └── suggest/           # AI financial advice
 └── shared/
     ├── middleware/        # Auth, validation, error handling
@@ -73,6 +74,7 @@ src/
 |--------|---------|
 | **Users** | Sign up, login, get profile, update preferences |
 | **Transactions** | Create, read, update, delete income/expense records. Get summary and trends |
+| **Budget** | Set and fetch monthly goal and savings target per month |
 | **Suggest** | Ask financial questions and get AI-powered advice based on your data |
 
 ---
@@ -354,7 +356,86 @@ Get daily income, expense, and balance over time (for charts).
 
 ---
 
-### 3. Suggest Module (`/api/v1/suggest`)
+### 3. Budget Module (`/api/v1/budget`)
+
+Set and fetch monthly budget goals and savings targets. One budget per user per month.
+
+All budget endpoints require authentication.
+
+#### Get Budget
+
+Fetch budget for the current month or a specific month.
+
+| Method | Endpoint | Auth Required |
+|--------|----------|---------------|
+| GET | `/api/v1/budget` | Yes |
+
+**Query Parameters:**
+
+| Param | Type | Required | Description |
+|-------|------|----------|-------------|
+| month | string | No | Month in `YYYY-MM` format (default: current month) |
+
+**Example:**
+
+```
+GET /api/v1/budget
+GET /api/v1/budget?month=2025-03
+```
+
+**Response (when budget exists):**
+
+```json
+{
+  "id": "...",
+  "user": "...",
+  "month": "2025-03",
+  "monthlyGoal": 5000,
+  "savingsTarget": 1500
+}
+```
+
+**Response (when no budget set):**
+
+```json
+{
+  "monthlyGoal": 0,
+  "savingsTarget": 0,
+  "month": "2025-03"
+}
+```
+
+---
+
+#### Set/Update Budget
+
+Create or update monthly goal and savings target for a month.
+
+| Method | Endpoint | Auth Required |
+|--------|----------|---------------|
+| PUT | `/api/v1/budget` | Yes |
+
+**Request Body:**
+
+```json
+{
+  "monthlyGoal": 5000,
+  "savingsTarget": 1500,
+  "month": "2025-03"
+}
+```
+
+| Field | Type | Required | Rules |
+|-------|------|----------|-------|
+| monthlyGoal | number | Yes | ≥ 0 |
+| savingsTarget | number | Yes | ≥ 0 |
+| month | string | No | `YYYY-MM` format (default: current month) |
+
+**Response:** Budget object (id, user, month, monthlyGoal, savingsTarget)
+
+---
+
+### 4. Suggest Module (`/api/v1/suggest`)
 
 Get AI-powered financial advice based on your transaction data.
 
@@ -442,6 +523,16 @@ curl -X POST http://localhost:3000/api/v1/transactions \
 
 # 4. Get summary
 curl "http://localhost:3000/api/v1/transactions/summary" \
+  -H "Authorization: Bearer YOUR_ACCESS_TOKEN"
+
+# 5. Set budget (monthly goal & savings target)
+curl -X PUT http://localhost:3000/api/v1/budget \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer YOUR_ACCESS_TOKEN" \
+  -d '{"monthlyGoal":5000,"savingsTarget":1500}'
+
+# 6. Get budget
+curl "http://localhost:3000/api/v1/budget" \
   -H "Authorization: Bearer YOUR_ACCESS_TOKEN"
 ```
 
