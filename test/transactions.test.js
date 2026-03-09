@@ -11,7 +11,7 @@ const createTransaction = {
   type: "income",
   amount: 1000,
   date: new Date().toISOString(),
-  notes: "Salary for the month",  
+  notes: "Salary for the month",
 };
 
 const updateTransaction = {
@@ -21,7 +21,6 @@ const updateTransaction = {
   notes: "Food for the month",
   title: "Food for the month",
 };
-
 
 const signupUser = {
   name: "John Doe",
@@ -48,7 +47,7 @@ tap.test("POST /api/v1/users/signup", async (t) => {
 });
 
 tap.test("POST /api/v1/users/login", async (t) => {
-  const response = await server.post("/api/v1/users/login").send(loginUser)
+  const response = await server.post("/api/v1/users/login").send(loginUser);
   authToken = response.body.data.accessToken;
   t.equal(response.status, 200);
   t.end();
@@ -59,7 +58,7 @@ tap.test("POST /api/v1/transactions", async (t) => {
     .post("/api/v1/transactions")
     .set("Authorization", `Bearer ${authToken}`)
     .send(createTransaction);
-    console.log(response.body.data)
+  console.log(response.body.data);
   transactionId = response.body.data.id;
   t.equal(response.status, 201);
   t.end();
@@ -106,5 +105,4 @@ tap.test("DELETE /api/v1/transactions/:id", async (t) => {
   t.end();
 });
 
-tap.teardown(async () => {
-});
+tap.teardown(async () => {});

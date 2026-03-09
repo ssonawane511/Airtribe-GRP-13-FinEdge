@@ -1,4 +1,4 @@
-import 'dotenv/config';
+import "dotenv/config";
 import express from "express";
 import cors from "cors";
 import helmet from "helmet";
@@ -6,7 +6,7 @@ import compression from "compression";
 
 import { httpLogger } from "./shared/logger/index.js";
 
-// routes 
+// routes
 import usersRoutes from "./modules/users/users.routes.js";
 import transactionsRoutes from "./modules/transactions/transactions.routes.js";
 import suggestRoutes from "./modules/suggest/suggest.routes.js";
@@ -21,7 +21,7 @@ const CORS_ORIGIN = process.env.CORS_ORIGIN || "*";
 const corsOptions = {
   origin: CORS_ORIGIN.split(","),
   methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
-  credentials: true
+  credentials: true,
 };
 
 app.use(cors(corsOptions));

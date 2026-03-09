@@ -7,7 +7,11 @@
   "scripts": {
     "test": "NODE_ENV=test tap test/*.js --disable-coverage",
     "start": "node server.js",
-    "dev": "nodemon server.js"
+    "dev": "nodemon server.js",
+    "prepare": "husky",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix .",
+    "format:check": "prettier --check ."
   },
   "keywords": [],
   "author": "",
@@ -29,12 +33,22 @@
     "zod": "^4.3.6"
   },
   "devDependencies": {
+    "@eslint/js": "^10.0.1",
     "eslint": "^10.0.3",
+    "eslint-plugin-prettier": "^5.5.5",
+    "husky": "^9.1.7",
     "jest": "^30.2.0",
+    "lint-staged": "^16.3.2",
     "mongodb-memory-server": "^11.0.1",
     "nodemon": "^3.1.14",
     "prettier": "^3.8.1",
     "supertest": "^7.2.2",
     "tap": "^21.6.2"
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint",
+      "prettier --write"
+    ]
   }
 }

@@ -1,6 +1,7 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 const transformObject = (obj) => {
+  // eslint-disable-next-line no-unused-vars -- intentionally excluding from output
   const { password, _id, __v, ...rest } = obj;
   return { ...(_id && { id: _id }), ...rest };
 };
@@ -10,21 +11,26 @@ const sanitizeResponse = (data) => {
   if (data instanceof mongoose.Document) {
     result = data.toObject();
   } else if (Array.isArray(data)) {
-    return data.map(item => sanitizeResponse(item));
+    return data.map((item) => sanitizeResponse(item));
   } else {
-    result = data && typeof data === 'object' ? { ...data } : data;
+    result = data && typeof data === "object" ? { ...data } : data;
   }
-  if (result && typeof result === 'object') {
+  if (result && typeof result === "object") {
     return transformObject(result);
   }
   return result;
-}
+};
 
-export const successResponse = (res, data, message = "Success", status = 200) => {
+export const successResponse = (
+  res,
+  data,
+  message = "Success",
+  status = 200,
+) => {
   const sanitizedData = sanitizeResponse(data);
   return res.status(status).json({
     success: true,
     message,
-    data: sanitizedData
-  })
-}
+    data: sanitizedData,
+  });
+};

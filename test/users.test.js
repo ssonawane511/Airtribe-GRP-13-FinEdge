@@ -57,5 +57,4 @@ tap.test("GET /api/v1/users", async (t) => {
   t.end();
 });
 
-tap.teardown(async () => {
-});
+tap.teardown(async () => {});

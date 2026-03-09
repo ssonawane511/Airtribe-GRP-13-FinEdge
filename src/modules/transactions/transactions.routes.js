@@ -6,15 +6,30 @@ import validate from "../../shared/middleware/validate.middleware.js";
 
 const router = express.Router();
 
-router.get("/", authenticate, validate(transactionsValidator.getAllTransactionsSchema), transactionsController.getAllTransactions);
+router.get(
+  "/",
+  authenticate,
+  validate(transactionsValidator.getAllTransactionsSchema),
+  transactionsController.getAllTransactions,
+);
 router.post(
   "/",
   authenticate,
   validate(transactionsValidator.createTransactionSchema),
   transactionsController.createTransaction,
 );
-router.get("/summary", authenticate, validate(transactionsValidator.summarySchema), transactionsController.getTransactionSummary);
-router.get("/trend", authenticate, validate(transactionsValidator.trendSchema), transactionsController.getTransactionTrend);
+router.get(
+  "/summary",
+  authenticate,
+  validate(transactionsValidator.summarySchema),
+  transactionsController.getTransactionSummary,
+);
+router.get(
+  "/trend",
+  authenticate,
+  validate(transactionsValidator.trendSchema),
+  transactionsController.getTransactionTrend,
+);
 router.put(
   "/:id",
   authenticate,

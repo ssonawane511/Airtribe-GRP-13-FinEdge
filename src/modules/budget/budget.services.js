@@ -25,7 +25,7 @@ const upsertBudget = async ({ userId, month, monthlyGoal, savingsTarget }) => {
       month: monthStr,
     },
     { monthlyGoal, savingsTarget },
-    { returnDocument: "after", upsert: true, runValidators: true }
+    { returnDocument: "after", upsert: true, runValidators: true },
   );
   return budget;
 };

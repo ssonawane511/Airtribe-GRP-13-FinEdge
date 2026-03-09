@@ -6,6 +6,11 @@ import suggestValidator from "./suggest.validator.js";
 
 const router = express.Router();
 
-router.get("/", authenticate, validate(suggestValidator.getSuggestSchema), suggestController.getSuggest);
+router.get(
+  "/",
+  authenticate,
+  validate(suggestValidator.getSuggestSchema),
+  suggestController.getSuggest,
+);
 
 export default router;

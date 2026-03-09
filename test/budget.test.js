@@ -51,7 +51,10 @@ tap.test("GET /api/v1/budget (no budget set)", async (t) => {
     .get("/api/v1/budget")
     .set("Authorization", `Bearer ${authToken}`);
   t.equal(response.status, 200);
-  t.ok(response.body.data.monthlyGoal === 0 && response.body.data.savingsTarget === 0);
+  t.ok(
+    response.body.data.monthlyGoal === 0 &&
+      response.body.data.savingsTarget === 0,
+  );
   t.end();
 });
 

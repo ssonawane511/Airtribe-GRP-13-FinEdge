@@ -10,13 +10,13 @@ router.get(
   "/",
   authenticate,
   validate(budgetValidator.getBudgetSchema),
-  budgetController.getBudget
+  budgetController.getBudget,
 );
 router.put(
   "/",
   authenticate,
   validate(budgetValidator.putBudgetSchema),
-  budgetController.putBudget
+  budgetController.putBudget,
 );
 
 export default router;

@@ -1,28 +1,28 @@
-import { z } from "zod"
+import { z } from "zod";
 
 export const createUserSchema = z.object({
-    body: z.object({
-        name: z.string().min(2),
-        email: z.string().email(),
-        password: z.string().min(6)
-    })
-})
+  body: z.object({
+    name: z.string().min(2),
+    email: z.string().email(),
+    password: z.string().min(6),
+  }),
+});
 
 export const loginUserSchema = z.object({
-    body: z.object({
-        email: z.string().email(),
-        password: z.string().min(6)
-    })
-})
+  body: z.object({
+    email: z.string().email(),
+    password: z.string().min(6),
+  }),
+});
 
 const updateUserPreferencesSchema = z.object({
-    body: z.object({
-        preferences: z.array(z.string())
-    })
-})
+  body: z.object({
+    preferences: z.array(z.string()),
+  }),
+});
 
 export default {
-    createUserSchema,
-    loginUserSchema,
-    updateUserPreferencesSchema
-}
+  createUserSchema,
+  loginUserSchema,
+  updateUserPreferencesSchema,
+};

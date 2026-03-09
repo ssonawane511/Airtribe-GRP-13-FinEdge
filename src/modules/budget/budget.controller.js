@@ -12,7 +12,7 @@ const getBudget = async (req, res) => {
     res,
     budget || { monthlyGoal: 0, savingsTarget: 0, month: monthStr },
     "Budget fetched successfully",
-    200
+    200,
   );
 };
 
