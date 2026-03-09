@@ -16,6 +16,14 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(logger);
 
+app.get('/health', (req, res) => {
+    return res.status(200).json({
+        status: 'ok',
+        message: 'Server is running',
+        timestamp: new Date().toISOString(),
+    });
+});
+
 app.use('/users', userRoute);
 app.use('/transactions', transactionRoute);
 app.use('/summary', summaryRoute);
@@ -38,6 +46,7 @@ const startServer = async () => {
     }
 };
 
+// This file is being run directly not imported by another file
 if (require.main === module) {
     startServer();
 }
