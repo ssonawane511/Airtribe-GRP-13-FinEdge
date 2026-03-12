@@ -56,9 +56,44 @@ const getUser = async (userId) => {
   return user;
 };
 
+const findOrCreateGoogleUser = async (profile) => {
+  const email = profile.emails?.[0]?.value;
+  if (!email) {
+    throw new BadRequestError("Email not found in Google profile");
+  }
+  let user = await User.findOne({ email });
+  if (!user) {
+    user = await User.create({
+      name: profile.displayName || profile.name?.givenName || "User",
+      email,
+      password: null, // OAuth users have no password
+      provider: "google",
+    });
+  }
+  return user;
+};
+
+const googleCallback = async (user) => {
+  const accessToken = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, {
+    expiresIn: process.env.JWT_EXPIRES_IN,
+  });
+  const refreshToken = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, {
+    expiresIn: process.env.JWT_REFRESH_EXPIRES_IN,
+  });
+  if (process.env.FRONTEND_URL) {
+    res.redirect(
+      `${process.env.FRONTEND_URL}/auth/callback?accessToken=${accessToken}&refreshToken=${refreshToken}`,
+    );
+  } else {
+    return { user, accessToken, refreshToken };
+  }
+};
+
 export default {
   signup,
   login,
   updateUserPreferences,
   getUser,
+  findOrCreateGoogleUser,
+  googleCallback,
 };

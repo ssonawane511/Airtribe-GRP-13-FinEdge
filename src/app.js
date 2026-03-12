@@ -3,6 +3,7 @@ import express from "express";
 import cors from "cors";
 import helmet from "helmet";
 import compression from "compression";
+import session from "express-session";
 
 import { httpLogger } from "./shared/logger/index.js";
 
@@ -14,8 +15,10 @@ import budgetRoutes from "./modules/budget/budget.routes.js";
 // middleware
 import { errorHandler } from "./shared/middleware/error.middleware.js";
 import rateLimiter from "./shared/middleware/ratelimit.middleware.js";
+import passport from "./config/passport.js";
 
 const app = express();
+app.set("trust proxy", 1);
 const CORS_ORIGIN = process.env.CORS_ORIGIN || "*";
 
 const corsOptions = {
@@ -30,6 +33,16 @@ app.use(compression());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(rateLimiter);
+
+app.use(
+  session({
+    secret: "secret",
+    resave: false,
+    saveUninitialized: true
+  })
+);
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.get("/health", (_, res) => {
   res.json({ status: "ok" });

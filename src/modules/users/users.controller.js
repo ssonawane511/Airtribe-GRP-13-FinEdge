@@ -1,5 +1,6 @@
 import userService from "./users.services.js";
 import { successResponse } from "../../shared/utils/response.js";
+import jwt from "jsonwebtoken";
 
 const signup = async (req, res) => {
   const { name, email, password } = req.body;
@@ -26,9 +27,21 @@ const getUser = async (req, res) => {
   successResponse(res, user, "User fetched successfully", 200);
 };
 
+const googleCallback = async (req, res) => {
+  const user = req.user;
+  const { accessToken, refreshToken } = await userService.googleCallback(user);
+  successResponse(
+    res,
+    { user: user.toJSON(), accessToken, refreshToken },
+    "Google authentication successful",
+    200,
+  );
+};
+
 export default {
   signup,
   login,
   updateUserPreferences,
   getUser,
+  googleCallback,
 };

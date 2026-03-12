@@ -12,11 +12,16 @@ const userSchema = new mongoose.Schema({
   },
   password: {
     type: String,
-    required: true,
+    required: false,  // OAuth users don't have password
+    default: null,
   },
   preferences: {
     type: Array,
     default: [],
+  },
+  provider: {
+    type: String,
+    default: "email",
   },
 });
 
