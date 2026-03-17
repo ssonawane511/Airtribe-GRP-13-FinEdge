@@ -1,0 +1,44 @@
+name: CI Tests
+
+on:
+  pull_request:
+    types: [opened, reopened]
+  push:
+    branches:
+      - main
+
+jobs:
+  test:
+    name: Build and test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Load CI environment variables
+        run: |
+          if [ -f .env.example ]; then
+            cp .env.example .env
+            echo "Copied .env.example to .env"
+          else
+            echo "No .env.example found; continuing without .env"
+          fi
+
+      - name: Run prebuild step
+        run: npm run prebuild --if-present
+
+      - name: Build application
+        run: npm run build --if-present
+
+      - name: Run tests
+        run: npm test
