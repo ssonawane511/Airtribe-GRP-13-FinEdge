@@ -555,3 +555,33 @@ npm test
 - **Auth:** JWT (jsonwebtoken)
 - **AI:** OpenAI-compatible API (GitHub inference)
 - **Logging:** Pino
+
+---
+
+## Swagger/OpenAPI Docs
+
+- Local API docs UI: `http://localhost:3000/docs`
+- OpenAPI JSON endpoint: `http://localhost:3000/docs/openapi.json`
+- Static docs files for GitHub Pages are generated into `/docs`.
+
+Generate the static OpenAPI spec:
+
+```bash
+npm run swagger:generate
+```
+
+### GitHub Pages deployment
+
+1. Commit the `/docs` folder (`index.html` + `openapi.json`).
+2. In GitHub repository settings, enable **Pages**.
+3. Set source to:
+   - Branch: `main`
+   - Folder: `/docs`
+
+### Automatic deployment on merge to `main`
+
+This repository includes a GitHub Actions workflow at `.github/workflows/swagger-pages.yml` that runs on every push/merge to `main`:
+
+1. Regenerates `docs/openapi.json` using `node generateSwagger.js`
+2. Uploads the `/docs` directory as a Pages artifact
+3. Deploys it to GitHub Pages
