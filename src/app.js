@@ -16,6 +16,7 @@ import budgetRoutes from "./modules/budget/budget.routes.js";
 import { errorHandler } from "./shared/middleware/error.middleware.js";
 import rateLimiter from "./shared/middleware/ratelimit.middleware.js";
 import passport from "./config/passport.js";
+import openapiSpecification from "./config/swagger.js";
 
 const app = express();
 app.set("trust proxy", 1);
@@ -47,6 +48,11 @@ app.use(passport.session());
 app.get("/health", (_, res) => {
   res.json({ status: "ok" });
 });
+
+app.get("/docs/openapi.json", (_, res) => {
+  res.json(openapiSpecification);
+});
+app.use("/docs", express.static("docs"));
 
 app.use("/api/v1/users", httpLogger, usersRoutes);
 app.use("/api/v1/transactions", httpLogger, transactionsRoutes);
