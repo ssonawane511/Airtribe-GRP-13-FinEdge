@@ -1,8 +1,10 @@
 import express from "express";
+import passport from "passport";
+
 import userController from "./users.controller.js";
 import usersValidator from "./users.validator.js";
 import validate from "../../shared/middleware/validate.middleware.js";
-import passport from "passport";
+import { authRateLimiter } from "../../shared/middleware/ratelimit.middleware.js";
 
 const router = express.Router();
 
@@ -46,6 +48,7 @@ router.get(
  */
 router.post(
   "/signup",
+  authRateLimiter,
   validate(usersValidator.createUserSchema),
   userController.signup,
 );
@@ -70,8 +73,30 @@ router.post(
  */
 router.post(
   "/login",
+  authRateLimiter,
   validate(usersValidator.loginUserSchema),
   userController.login,
+);
+
+/**
+ * @swagger
+ * /api/v1/users/logout:
+ *   post:
+ *     summary: Logout the current user and invalidate active JWTs
+ *     tags: [Auth]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: User logged out successfully
+ *       401:
+ *         description: Unauthorized
+ */
+router.post(
+  "/logout",
+  passport.authenticate("jwt", { session: false }),
+  authRateLimiter,
+  userController.logout,
 );
 
 /**
