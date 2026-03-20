@@ -1,6 +1,5 @@
 import userService from "./users.services.js";
 import { successResponse } from "../../shared/utils/response.js";
-import jwt from "jsonwebtoken";
 
 const signup = async (req, res) => {
   const { name, email, password } = req.body;
@@ -12,6 +11,16 @@ const login = async (req, res) => {
   const { email, password } = req.body;
   const user = await userService.login(email, password);
   successResponse(res, user, "User logged in successfully", 200);
+};
+
+const logout = async (req, res) => {
+  const result = await userService.logout({
+    userId: req.user.id,
+    token: req.auth?.token,
+    decodedToken: req.auth?.payload,
+  });
+
+  successResponse(res, result, "User logged out successfully", 200);
 };
 
 const updateUserPreferences = async (req, res) => {
@@ -41,6 +50,7 @@ const googleCallback = async (req, res) => {
 export default {
   signup,
   login,
+  logout,
   updateUserPreferences,
   getUser,
   googleCallback,

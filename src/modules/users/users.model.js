@@ -12,7 +12,7 @@ const userSchema = new mongoose.Schema({
   },
   password: {
     type: String,
-    required: false,  // OAuth users don't have password
+    required: false, // OAuth users don't have password
     default: null,
   },
   preferences: {
@@ -22,6 +22,11 @@ const userSchema = new mongoose.Schema({
   provider: {
     type: String,
     default: "email",
+  },
+  authVersion: {
+    type: Number,
+    default: 0,
+    min: 0,
   },
 });
 
