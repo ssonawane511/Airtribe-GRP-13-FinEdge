@@ -2,7 +2,7 @@ import tap from "tap";
 import supertest from "supertest";
 
 import app from "../src/app.js";
-import connectDB, { closeDB } from "../src/config/database.js";
+import connectDB from "../src/config/database.js";
 
 const server = supertest(app);
 let authToken = null;
@@ -97,6 +97,4 @@ tap.test("POST /api/v1/users/logout invalidates current and older tokens", async
   t.end();
 });
 
-tap.teardown(async () => {
-  await closeDB();
-});
+tap.teardown(async () => {});
