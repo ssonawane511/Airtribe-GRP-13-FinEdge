@@ -10,7 +10,6 @@ import openapiSpecification from "./config/swagger.js";
 import budgetRoutes from "./modules/budget/budget.routes.js";
 import suggestRoutes from "./modules/suggest/suggest.routes.js";
 import transactionsRoutes from "./modules/transactions/transactions.routes.js";
-import authRoutes from "./modules/users/auth.routes.js";
 import usersRoutes from "./modules/users/users.routes.js";
 import { httpLogger } from "./shared/logger/index.js";
 import { errorHandler } from "./shared/middleware/error.middleware.js";
@@ -52,7 +51,6 @@ app.get("/docs/openapi.json", (_req, res) => {
 });
 app.use("/docs", express.static("docs"));
 
-app.use("/api/auth", httpLogger, authRoutes);
 app.use("/api/v1/users", httpLogger, usersRoutes);
 app.use("/api/v1/transactions", httpLogger, transactionsRoutes);
 app.use("/api/v1/suggest", httpLogger, suggestRoutes);

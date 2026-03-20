@@ -43,8 +43,8 @@ tap.test("POST /api/v1/users/login", async (t) => {
   t.end();
 });
 
-tap.test("POST /api/auth/login returns authVersion-aware tokens", async (t) => {
-  const response = await server.post("/api/auth/login").send(loginUser);
+tap.test("POST /api/v1/users/login returns authVersion-aware tokens", async (t) => {
+  const response = await server.post("/api/v1/users/login").send(loginUser);
   secondAuthToken = response.body.data.accessToken;
   t.equal(response.status, 200);
   t.end();
@@ -68,9 +68,9 @@ tap.test("GET /api/v1/users", async (t) => {
   t.end();
 });
 
-tap.test("POST /api/auth/logout invalidates current and older tokens", async (t) => {
+tap.test("POST /api/v1/users/logout invalidates current and older tokens", async (t) => {
   const logoutResponse = await server
-    .post("/api/auth/logout")
+    .post("/api/v1/users/logout")
     .set("Authorization", `Bearer ${authToken}`);
 
   t.equal(logoutResponse.status, 200);
@@ -86,7 +86,7 @@ tap.test("POST /api/auth/logout invalidates current and older tokens", async (t)
     .set("Authorization", `Bearer ${secondAuthToken}`);
   t.equal(invalidatedOlderTokenResponse.status, 401);
 
-  const reLoginResponse = await server.post("/api/auth/login").send(loginUser);
+  const reLoginResponse = await server.post("/api/v1/users/login").send(loginUser);
   t.equal(reLoginResponse.status, 200);
 
   const freshTokenResponse = await server
