@@ -1,7 +1,7 @@
 import tap from "tap";
 import supertest from "supertest";
 import app from "../src/app.js";
-import connectDB from "../src/config/database.js";
+import connectDB, { closeDB } from "../src/config/database.js";
 
 const server = supertest(app);
 let authToken = null;
@@ -101,4 +101,6 @@ tap.test("GET /api/v1/budget?month=2025-03", async (t) => {
   t.end();
 });
 
-tap.teardown(async () => {});
+tap.teardown(async () => {
+  await closeDB();
+});

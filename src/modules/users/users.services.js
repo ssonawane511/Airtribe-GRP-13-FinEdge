@@ -1,21 +1,26 @@
-import User from "./users.model.js";
 import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
 
-import { NotFoundError } from "../../shared/errors/errors.js";
-import { BadRequestError } from "../../shared/errors/errors.js";
-import { ConflictError } from "../../shared/errors/errors.js";
+import User from "./users.model.js";
+import invalidatedTokenCache from "../../shared/utils/token-cache.js";
+import {
+  createTokenPair,
+  getTokenRemainingTtlMs,
+} from "../../shared/utils/jwt.js";
+import {
+  BadRequestError,
+  ConflictError,
+  NotFoundError,
+  UnauthorizedError,
+} from "../../shared/errors/errors.js";
 
 const SALT_ROUNDS = 10;
-const JWT_SECRET = process.env.JWT_SECRET;
-const JWT_EXPIRES_IN = process.env.JWT_EXPIRES_IN;
-const JWT_REFRESH_EXPIRES_IN = process.env.JWT_REFRESH_EXPIRES_IN;
 
 const signup = async (name, email, password) => {
   const existingUser = await User.findOne({ email });
   if (existingUser) {
     throw new ConflictError("User already exists");
   }
+
   const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
   const user = await User.create({ name, email, password: hashedPassword });
   return user;
@@ -26,17 +31,35 @@ const login = async (email, password) => {
   if (!user) {
     throw new NotFoundError("User not found");
   }
+
+  if (!user.password) {
+    throw new BadRequestError("Password login is not available for this account");
+  }
+
   const isPasswordValid = await bcrypt.compare(password, user.password);
   if (!isPasswordValid) {
     throw new BadRequestError("Invalid password");
   }
-  const accessToken = jwt.sign({ userId: user._id }, JWT_SECRET, {
-    expiresIn: JWT_EXPIRES_IN,
-  });
-  const refreshToken = jwt.sign({ userId: user._id }, JWT_SECRET, {
-    expiresIn: JWT_REFRESH_EXPIRES_IN,
-  });
+
+  const { accessToken, refreshToken } = createTokenPair(user);
   return { user, accessToken, refreshToken };
+};
+
+const logout = async ({ userId, token, decodedToken }) => {
+  const ttlMs = getTokenRemainingTtlMs(decodedToken);
+  invalidatedTokenCache.invalidate(token, ttlMs);
+
+  const user = await User.findByIdAndUpdate(
+    userId,
+    { $inc: { authVersion: 1 } },
+    { new: true },
+  );
+
+  if (!user) {
+    throw new UnauthorizedError("User not found for logout");
+  }
+
+  return { loggedOut: true, authVersion: user.authVersion };
 };
 
 const updateUserPreferences = async (userId, preferences) => {
@@ -61,12 +84,13 @@ const findOrCreateGoogleUser = async (profile) => {
   if (!email) {
     throw new BadRequestError("Email not found in Google profile");
   }
+
   let user = await User.findOne({ email });
   if (!user) {
     user = await User.create({
       name: profile.displayName || profile.name?.givenName || "User",
       email,
-      password: null, // OAuth users have no password
+      password: null,
       provider: "google",
     });
   }
@@ -74,24 +98,14 @@ const findOrCreateGoogleUser = async (profile) => {
 };
 
 const googleCallback = async (user) => {
-  const accessToken = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, {
-    expiresIn: process.env.JWT_EXPIRES_IN,
-  });
-  const refreshToken = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, {
-    expiresIn: process.env.JWT_REFRESH_EXPIRES_IN,
-  });
-  if (process.env.FRONTEND_URL) {
-    res.redirect(
-      `${process.env.FRONTEND_URL}/auth/callback?accessToken=${accessToken}&refreshToken=${refreshToken}`,
-    );
-  } else {
-    return { user, accessToken, refreshToken };
-  }
+  const { accessToken, refreshToken } = createTokenPair(user);
+  return { user, accessToken, refreshToken };
 };
 
 export default {
   signup,
   login,
+  logout,
   updateUserPreferences,
   getUser,
   findOrCreateGoogleUser,
